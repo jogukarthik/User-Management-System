@@ -12,14 +12,26 @@ export const UserPage = () => {
     const user=useSelector((state: any) => state.user.user);
     const onSubmit=(data:FormValues)=>{
         console.log(data);
-        reset();
+        dispatch(setUser(data));
     }
-    const {register,handleSubmit,formState,reset,watch}=useForm<FormValues>();
-    const watchForm=watch();
-    useEffect(()=>{
-        console.log(watchForm);
-        dispatch(setUser(watchForm));
-    },[watchForm]);
+    const {register,handleSubmit,formState,reset}=useForm<FormValues>({
+      defaultValues:{
+        name:user?.name || "",
+        email:user?.email || "",
+        password:""
+      }
+    });
+
+    // Update form fields when Redux data changes
+    useEffect(() => {
+      if(user?.name || user?.email) {
+        reset({
+          name: user.name,
+          email: user.email,
+          password: ""
+        });
+      }
+    }, [user, reset]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

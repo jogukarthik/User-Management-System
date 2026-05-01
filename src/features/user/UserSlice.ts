@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+type user={
+    name:string,
+    email:string,
+    password:string
+}
 const user={
     name:"",
     email:"",
@@ -13,6 +17,7 @@ const userSlice = createSlice({
     reducers: {
         setUser: (state, action) => {
             state.user = action.payload;
+            console.log(state.user);
         }
     }
 });
