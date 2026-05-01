@@ -1,16 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
+import { useDispatch,useSelector } from 'react-redux';
+import { setUser } from './UserSlice';
 export const UserPage = () => {
     type FormValues={
         name:string,
         email:string,
         password:string
     }
+    const dispatch=useDispatch();
+    const user=useSelector((state: any) => state.user.user);
     const onSubmit=(data:FormValues)=>{
         console.log(data);
         reset();
     }
-    const {register,handleSubmit,formState,reset}=useForm<FormValues>();
+    const {register,handleSubmit,formState,reset,watch}=useForm<FormValues>();
+    const watchForm=watch();
+    useEffect(()=>{
+        console.log(watchForm);
+        dispatch(setUser(watchForm));
+    },[watchForm]);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">Name</label>
