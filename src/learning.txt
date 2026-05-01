@@ -1,0 +1,16 @@
+why folder structure??
+“We follow feature-based architecture where
+ business logic is grouped inside features,
+reusable UI in components, 
+API logic in services,
+ shared logic in hooks,
+ utilities in utils, 
+ and global configuration in app. This improves scalability, 
+ maintainability, and separation of concerns in large applications.”
+
+--------------------------------------------------------------------------------------------
+
+
+
+
+
