@@ -10,6 +10,13 @@ API logic in services,
 
 --------------------------------------------------------------------------------------------
 
+Eslint-----------------catching bugs early,enforcing coding standards
+
+prettier---------------formatting code
+
+husky--------------enformcing coding standards before commiting the code
+
+
 
 
 

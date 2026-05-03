@@ -6,21 +6,44 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.4",
     "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.59.1",
+    "@typescript-eslint/parser": "^8.59.1",
+    "eslint": "^9.39.4",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.6.0",
+    "husky": "^9.1.7",
+    "jiti": "^2.6.1",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3",
     "typescript": "~6.0.2",
+    "typescript-eslint": "^8.59.1",
     "vite": "^8.0.10"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@hookform/resolvers": "^5.2.2",
     "@mui/material": "^9.0.0",
     "@reduxjs/toolkit": "^2.11.2",
     "axios": "^1.15.2",
+    "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "react-hook-form": "^7.74.0",
-    "react-redux": "^9.2.0"
-  }
+    "react-hook-form": "^7.75.0",
+    "react-redux": "^9.2.0",
+    "zod": "^4.4.2"
+  },
+  "lint-staged": {
+  "*.{js,ts,tsx}": [
+    "eslint --fix",
+    "prettier --write"
+  ]
+}
 }
