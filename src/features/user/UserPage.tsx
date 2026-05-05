@@ -1,38 +1,46 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../app/hooks';
-import { setUser } from './UserSlice';
-import { useAppSelector } from '../../app/hooks';
+import { addUser } from './UserSlice';
 import { userSchema } from './UserSchema';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 export const UserPage = () => {
   type FormValues = z.infer<typeof userSchema>;
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user.data);
+  //const user = useAppSelector((state) => state.user.users);
   const onSubmit = (data: FormValues) => {
     console.log(data);
-    dispatch(setUser(data));
-  };
-  const { register, handleSubmit, formState, reset } = useForm<FormValues>({
-    resolver: zodResolver(userSchema),
-    defaultValues: {
-      name: user?.name || '',
-      email: user?.email || '',
+    dispatch(addUser(data)); //-------------------need to change this for users array
+    localStorage.removeItem('formDraft');
+    reset({
+      name: '',
+      email: '',
       password: '',
-    },
-  });
+      confirmPassword: '',
+    });
+  };
+  const { register, handleSubmit, formState, reset, watch } =
+    useForm<FormValues>({
+      resolver: zodResolver(userSchema),
+    });
   const { errors } = formState;
   // Update form fields when Redux data changes
   useEffect(() => {
-    if (user?.name || user?.email) {
-      reset({
-        name: user.name,
-        email: user.email,
-        password: '',
-      });
+    const saved = localStorage.getItem('formDraft');
+    if (saved) {
+      reset(JSON.parse(saved));
     }
-  }, [user, reset]);
+  }, [reset]);
+
+  // 👇 Save on every change
+  useEffect(() => {
+    const sub = watch((value) => {
+      localStorage.setItem('formDraft', JSON.stringify(value));
+    });
+
+    return () => sub.unsubscribe();
+  }, [watch]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

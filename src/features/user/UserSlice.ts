@@ -1,25 +1,35 @@
-import { createSlice } from '@reduxjs/toolkit';
-type User = {
+// store/userSlice.ts
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+
+interface User {
+  id: number;
   name: string;
   email: string;
   password: string;
-};
-type UserState = {
-  data: User | null;
-};
+}
+
+interface UserState {
+  users: User[];
+}
+
 const initialState: UserState = {
-  data: null,
+  users: [],
 };
+
 const userSlice = createSlice({
-  name: 'user',
+  name: 'users',
   initialState,
   reducers: {
-    setUser: (state, action) => {
-      state.data = action.payload;
-      console.log(state.data);
+    addUser: (state, action: PayloadAction<Omit<User, 'id'>>) => {
+      state.users.push({
+        id: Date.now(),
+        ...action.payload,
+      });
+      console.log('User added:', action.payload);
+      console.log('Current users:', state.users.length);
     },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { addUser } = userSlice.actions;
 export default userSlice.reducer;

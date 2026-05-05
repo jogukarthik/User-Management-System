@@ -10,7 +10,8 @@ API logic in services,
 
 --------------------------------------------------------------------------------------------
 
-Eslint-----------------catching bugs early,enforcing coding standards
+Eslint-----------------,informign about unused varaibles,
+catching bugs early,enforcing coding standards
 
 prettier---------------formatting code
 
